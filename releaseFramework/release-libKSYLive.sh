@@ -149,10 +149,14 @@ function xBuild() {
     SDK=$3
 
     XCODE_BUILD="xcrun xcodebuild -quiet "
+    XCODE_BUILD="$XCODE_BUILD  -UseModernBuildSystem=NO"
     XCODE_BUILD="$XCODE_BUILD  -configuration Release"
     XCODE_BUILD="$XCODE_BUILD  -project ${PROJ}.xcodeproj"
     XCODE_BUILD="$XCODE_BUILD  -target  ${TARG}"
     XCODE_BUILD="$XCODE_BUILD  -sdk     ${SDK}"
+    if [[ $SDK == iphonesimulator ]]; then
+        XCODE_BUILD="$XCODE_BUILD  EXCLUDED_ARCHS=arm64"
+    fi
 
     echo "=====  building ${PROJ} - ${TARG} - ${SDK} @ `date` "
     xGenConfig ${XCODE_CONFIG}
