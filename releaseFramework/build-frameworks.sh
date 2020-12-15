@@ -15,13 +15,13 @@ _build() {
     ./release-libKSYLive.sh libksygpulive $name $format
 
     cd "$ROOT"
-    git checkout prebuilt/libs
+    git checkout prebuilt/libs -q
 
     formatPart=""
     if [[ -n $format ]]; then
         formatPart="_${format}"
     fi
-    zip -q --symlinks -r libksygpulive.framework_${name}${formatPart}_${VERSION}.zip framework/*
+    zip -q --symlinks -s 95m -r libksygpulive.framework_${name}${formatPart}_${VERSION}.zip framework
 
     rm -rf "$ROOT/framework"
 }
